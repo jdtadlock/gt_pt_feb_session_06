@@ -3,19 +3,38 @@ import { Route, withRouter } from 'react-router-dom';
 
 import Auth from './Auth';
 
+import Header from './components/Header';
 import Callback from './components/Callback';
+import Modal from './components/Modal';
 // import axios from 'axios';
 
 // src/Auth/Auth.js
 
 class App extends Component {
-  // componentDidMount = () => {
-  //   axios.get('/user')
-  //     .then(res => {
-  //       console.log(res.data);
-  //     });
-  // }
+  state = {
+    show_modal: false,
+    cards: [
+      {
+        head: 'Card 1 Header',
+        body: 'Body for card 1',
+        style_set: 1
+      },
+      {
+        head: 'Card 2 Header',
+        body: 'Body for card 2',
+        style_set: 2
+      },
+      {
+        head: 'Card 3 Header',
+        body: 'Body for card 3',
+        style_set: 1
+      }
+    ]  
+  }
   
+  setModal = (value) => {
+    this.setState({show_modal: value});
+  }
 
   render() {
     const auth = new Auth(this.props.history);
@@ -23,22 +42,21 @@ class App extends Component {
 
     return (
       <div>
-        <header>
-          <h3>Logo</h3>
+        <Header auth={auth} isAuth={isAuth} />
 
-          <p>{isAuth}</p>
-
-          <nav>
-            <span>{isAuth ? localStorage.getItem('user_email') : <button onClick={auth.login}>Login</button> }</span>
-
-            {isAuth ? <span onClick={auth.logout}>Logout</span> : ''}
-          </nav>
-        </header>
-
-        
+        {this.state.show_modal ? <Modal setModal={this.setModal} /> : ''}
+              
         <Route path="/callback" render={() => (
-          <Callback processAuth={auth.processAuthentication} />
+          <Callback 
+            processAuth={auth.processAuthentication}
+            setModal={this.setModal} />
         )} />
+
+        {this.state.cards.map((card, i) => (
+          <div key={i} className={`card ${}`}>
+
+          </div>
+        ))}
 
         {/* <button onClick={auth.logout}>Logout</button> */}
       </div>  

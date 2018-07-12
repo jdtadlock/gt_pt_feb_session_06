@@ -1,12 +1,14 @@
 import auth0 from 'auth0-js';
 
+const env = process.env.NODE_ENV;
+const redirect = env === 'development' ? 'http://localhost:3000/callback' : 'https://gtfeb5.now.sh/callback';
+
 export default class Auth {
   constructor(history) {
     this.auth0 = new auth0.WebAuth({
       domain: 'jdtadlock.auth0.com',
       clientID: 'CVeOOkjxWB65Vau30sMBy6wjpAmzZfpz',
-      // redirectUri: 'http://localhost:3000/callback',
-      redirectUri: 'https://gtfeb5.now.sh/callback',
+      redirectUri: redirect,
       audience: 'https://jdtadlock.auth0.com/userinfo',
       responseType: 'token id_token',
       scope: 'openid email'
@@ -32,7 +34,8 @@ export default class Auth {
     this.history.push('/');
   }
   
-  processAuthentication() {
+  // Saving the user to localStorage
+  processAuthentication(setModal) {
     this.auth0.parseHash((err, authResult) => {
       if ( err ) return console.log(err);
       
@@ -45,6 +48,7 @@ export default class Auth {
         localStorage.setItem('user_email', authResult.idTokenPayload.email);
 
         this.history.push('/');
+        setModal(true);
       }
     });
   }

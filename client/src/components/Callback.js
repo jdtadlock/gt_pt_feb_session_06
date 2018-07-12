@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Callback extends Component {
   componentDidMount() {
-    this.props.processAuth();
+    this.props.processAuth(this.props.setModal);
   }
 
   render() {

@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
+
 // api_routes(app);
 
 // app.get('/user', (req, res) => {
