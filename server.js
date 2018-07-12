@@ -22,4 +22,17 @@ app.use(bodyParser.json());
 //   res.send('Hello from the backend!');
 // });
 
+// app.post('/post', (req, res, next) => {
+//   if ( req.baseUrl == 'http://localhost:3000' ) {
+//     next();
+//   } else {
+//     res.status(403).send({message: 'You are not authorized'});
+//   }
+// }, (req, res, next) => {
+//   // check for something else
+//   next();
+// },  (req, res) => {
+
+// });
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

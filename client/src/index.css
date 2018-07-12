@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  overflow-x: hidden;
 }
 
 button {
@@ -26,16 +27,20 @@ header span:last-child {
 
 .modal {
   position: absolute;
-  top: 100px;
-  left: 0;
+  bottom: 100px;
   right: 0;
-  margin: 0 auto;
   z-index: 500;
   width: 450px;
   padding: 30px 0;
   text-align: center;
   background: #444;
   color: #fff;
+  transform: translateX(100%);
+  transition: transform .8s;
+}
+
+.modal.show {
+  transform: translateX(0);
 }
 
 .modal button {
